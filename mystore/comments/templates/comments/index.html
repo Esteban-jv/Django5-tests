@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<body>
+    <h1>All comments</h1>
+    <a href="{% url 'comments:add'  %}">New comment</a>
+
+    {% for comment in comments %}
+        <p> {{ comment.text }} </p>
+        <hr>
+        <p> {{ comment.posted }} </p>
+    <a href="{% url 'comments:update' comment.id  %}">Edit</a>
+    <form action="{% url 'comments:delete' comment.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+    {% endfor %}
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if comments.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ comments.previous_page_number }}">Prev</a>
+            </li>
+            {% endif %}
+
+            {% for i in comments.paginator.page_range %}
+                {% if i == comments.number %}
+                    <a href="?page={{ i }}" class="page-link active">{{ i }}</a>
+                {% else %}
+                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if comments.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ comments.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</body>
+</html>
