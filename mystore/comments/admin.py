@@ -13,6 +13,21 @@ class CommentAdmin(admin.ModelAdmin):
 
     fields = ('text',) # para modificar unicamente estos campos
     # exclude = ('emenet',) # Opposite of fields
+    save_as=True # Mensaje "Save as"
+    save_on_top=True # Save options on the top of the screen
+
+    class Media:
+        css = {
+            "all": ['my_style.css']
+        }
+
+    def delete_queryset(self, request, queryset):
+        print(("*"*45)+" - DELETING - "+("*"*45))
+        super().delete_queryset(request, queryset)
+
+    def save_model(self, request, obj, form, change):
+        print(("*"*45)+" Saving "+("*"*45))
+        super().save_model(request, obj, form, change)
 
 # Register your models here.
 # admin.site.register(Comment, CommentAdmin) # Se puede hacer así o bien con el decorador de clase
