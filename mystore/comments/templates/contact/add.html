@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+    {{ form.media }}
+</head>
+<body>
+    <h1>Add contact</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.other }}
+        {{ form.calendar }}
+        {% autoescape off %}
+            {{ form.custom }}
+        {% endautoescape %}
+        <input type="submit" value="Save">
+    </form>
+
+</body>
+</html>

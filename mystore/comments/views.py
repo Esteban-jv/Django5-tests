@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
 from .models import Comment
-from .forms import CommentForm
+from .forms import CommentForm, ContactForm
 
 # Create your views here.
 # def add(request):
@@ -62,3 +62,7 @@ def delete(request, id):
         comment.delete()
         return redirect('comments:index')
 
+#Unnecesary view
+def add_contact(request):
+    form = ContactForm()
+    return render(request, 'contact/add.html', {'form': form})
