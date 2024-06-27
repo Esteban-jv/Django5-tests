@@ -7,9 +7,34 @@
 <body>
     <h1>Add element</h1>
 
+    {% if form.errors %}
+        {% for field in form %}
+            <div class="alert alert-danger">
+                {% for error in field.errors %}
+                    <strong>{{ field.name }}</strong>:<span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <form method="POST">
         {% csrf_token %}
-        {{ form }}
+
+        {{ form.title.label }}
+        {{ form.title }}
+        {{ form.slug.label }}
+        {{ form.slug }}
+        <br>
+        {{ form.price.label }}
+        {{ form.price }}
+        {{ form.type.label }}
+        {{ form.type }}
+        {{ form.category.label }}
+        {{ form.category }}
+        <br>
+        {{ form.description.label }}
+        {{ form.description }}
+
         <input type="submit" value="Save">
     </form>
 

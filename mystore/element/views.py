@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
 from .models import Element
-from .forms import ElementForm
-from .forms import ElementModelForm
+from .forms import ElementForm # With form class
+from .forms import ElementModelForm # With form model class
 
 
 def index(request):
@@ -18,10 +18,10 @@ def index(request):
 # Create your views here.
 def add(request):
     if(request.method == 'POST'):
-        form = ElementModelForm(request.POST)
-        element = form.save()
+        form = ElementForm(request.POST)
+        # element = form.save()
 
-        ''' if form.is_valid():
+        if form.is_valid():
             element = Element()
             element.title = form.cleaned_data['title']
             element.slug = form.cleaned_data['slug']
@@ -29,9 +29,9 @@ def add(request):
             element.price = form.cleaned_data['price']
             element.category = form.cleaned_data['category']
             element.type = form.cleaned_data['type']
-            element.save() '''
-        return redirect('element:index')
+            element.save()
+            return redirect('element:index')
     else:
-        form = ElementModelForm()
+        form = ElementForm()
 
     return render(request, 'elements/add.html', { 'form': form })
