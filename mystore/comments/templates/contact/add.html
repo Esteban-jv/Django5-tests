@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Add</title>
+    <link rel="stylesheet" href="/static/admin/css/forms.css">
+    <script src="/admin/jsi18n/"></script>
+    <script src="/static/admin/js/core.js"></script>
+
     {{ form.media }}
 </head>
 <body>
     <h1>Add contact</h1>
 
     <form method="POST">
+        {{ form.other.as_field_group }}
         {% csrf_token %}
-        {{ form.other }}
-        {{ form.calendar }}
+
+        {{ form.calendar.as_field_group }}
+
         {% autoescape off %}
-            {{ form.custom }}
+            {{ form.custom.as_field_group }}
         {% endautoescape %}
+
         <input type="submit" value="Save">
     </form>
+<!--
+{ form.other
+% autoescape off
+            { form.custom
+        % endautoescape
+ -->
 
 </body>
 </html>

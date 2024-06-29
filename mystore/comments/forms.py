@@ -1,3 +1,4 @@
+from django.contrib.admin.widgets import BaseAdminDateWidget, BaseAdminTimeWidget
 from django.forms import ModelForm
 from django import forms
 
@@ -40,6 +41,6 @@ class CustomTextInput(forms.TextInput):
         return super().render(name, value, attrs, renderer)
 
 class ContactForm(forms.Form):
-    other = forms.CharField(widget=OtherWidget)
-    calendar = forms.CharField(widget=CalendarWidget)
-    custom = forms.CharField(widget=CustomTextInput)
+    other = forms.CharField(widget=OtherWidget, help_text="Help text 1")
+    calendar = forms.CharField(widget=BaseAdminTimeWidget, help_text="Help time!")
+    custom = forms.CharField(widget=CustomTextInput, help_text="Help text 3")

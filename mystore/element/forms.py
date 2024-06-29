@@ -5,6 +5,12 @@ from django.utils.text import slugify
 from .models import Category, Element, Type
 
 class ElementForm(forms.Form):
+
+    #Segunda manera de modificar atributos (Desde el constructor de la clase del form)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["description"].widget.attrs.update(size=45)
+
     title = forms.CharField(label='Title',
                             max_length=200,
                             min_length=3,
@@ -24,6 +30,11 @@ class ElementForm(forms.Form):
     price = forms.DecimalField(label='Price', decimal_places=2, max_digits=5, required=False)
     type = forms.ModelChoiceField(label="Type", queryset=Type.objects.all(), initial=1)
     category = forms.ModelChoiceField(label="Category", queryset=Category.objects.all(), initial=1) #, widget=forms.RadioSelect)
+
+    # Primera forma de agregar clases a un widget en específico
+    # category.widget.attrs.update({
+    #     'class':'special'
+    # })
 
     #Custom validations for specific field [title] (This may not be a good example)
     # def clean_title(self):
