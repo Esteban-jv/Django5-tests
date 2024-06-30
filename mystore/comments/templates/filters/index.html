@@ -1,0 +1,44 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    Comments List
+{% endblock %}
+
+{% load custom_tags %}
+
+{% block content %}
+    <h1>Examples filters</h1>
+
+    {% now "jS F Y H:i" %}
+    <br>
+    {{ "Xd"|lower }}
+    <br>
+    {{ "Xd"|upper }}
+    <br>
+    {{ 5|add:"2" }} {# IMPORTANT No puede haber espacios despues del pipe | #}
+    <br>
+
+    {% for a in array %}
+        <div class="{% cycle 'row1' 'row2' %} other">
+            {{ a }}
+        </div>
+    {% endfor %}
+
+    {{ other|default:'nothin' }}
+    <br>
+    {{ array|length }}
+    <br>
+    {{ 'exisde'|length }}
+    <br>
+    {{ contentHTML|safe }} {# esto sirve para renderizar código html #}
+    <br>
+    {{ array|join:"-" }}
+    <br>
+    {{ other|default:'nothin'|cut:"T" }} {# esto sirve para anidar #}
+    <br>
+    {{ 'Juárez'|some_custom_filter }} {# Custom filter made on custom_tags file #}
+    <br>
+
+<br>
+<br>
+{% endblock %}

@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add</title>
-</head>
-<body>
+{% extends "../base.html" %}
+{% block content %}
     <h1>Add comment</h1>
 
-<!--    <form method="POST">-->
-<!--        {% csrf_token %}-->
-<!--        <label for="comments"></label>-->
-<!--        <textarea id="comments" name="comments"></textarea>-->
-<!--        <input type="submit" value="Save">-->
-<!--    </form>-->
+    {% with date=comment.posted %}
+        --{{ date }}--
+    {% endwith %}
+
+    {% include "partials/errors-form.html" %}
 
     <form method="POST">
         {% csrf_token %}
         {{ form.text }}
         <input type="submit" value="Save">
     </form>
-
-</body>
-</html>
+{% endblock %}

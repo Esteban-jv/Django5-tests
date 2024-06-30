@@ -10,11 +10,12 @@
     {{ form.media }}
 </head>
 <body>
+    {# esto es un comentario #}
     <h1>Add contact</h1>
 
     <form method="POST">
-        {{ form.other.as_field_group }}
-        {% csrf_token %}
+        {{ form.other.as_field_group }} {# Aquí se impime una variable #}
+        {% csrf_token %} {# Aquí se declara un bloque #}
 
         {{ form.calendar.as_field_group }}
 

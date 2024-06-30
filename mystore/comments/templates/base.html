@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>{% block title %} Django5 {% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+        <a href="#">Contacto</a>
+    {% endblock %}
+</body>
+</html>

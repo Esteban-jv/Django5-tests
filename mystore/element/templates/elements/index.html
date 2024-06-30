@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Comments</title>
-</head>
-<body>
+{% extends "../base.html" %}
+{% block content %}
     <h1>All elements</h1>
     <a href="{% url 'element:add'  %}">New Element</a>
 
     <table>
         <tr>
+<!--            <th>Forloop</th>-->
             <th>Title</th>
             <th>Category</th>
             <th>Type</th>
@@ -18,6 +14,8 @@
         </tr>
         {% for element in elements %}
             <tr>
+<!--                <td>{{ forloop.first }}</td>-->
+<!--                <td>{{ forloop.last }}</td>-->
                 <td>{{ element.title }}</td>
                 <td>{{ element.category }}</td>
                 <td>{{ element.type }}</td>
@@ -31,29 +29,5 @@
     <!--    </form>-->
         {% endfor %}
     </table>
-    <nav>
-        <ul class="pagination justify-content-center">
-            {% if elements.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ elements.previous_page_number }}">Prev</a>
-            </li>
-            {% endif %}
-
-            {% for i in elements.paginator.page_range %}
-                {% if i == elements.number %}
-                    <a href="?page={{ i }}" class="page-link active">{{ i }}</a>
-                {% else %}
-                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if elements.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ elements.next_page_number }}">Next</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-
-</body>
-</html>
+    {% include "partials/pagination.html" with page_obj=elements %}
+{% endblock %}

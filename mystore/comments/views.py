@@ -32,7 +32,7 @@ def add(request):
 def index(request):
     comments = Comment.objects.all()
 
-    paginator = Paginator(comments, 2)
+    paginator = Paginator(comments, 6)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
 
@@ -53,7 +53,7 @@ def update(request, id):
     else:
         form = CommentForm(instance=comment)
 
-    return render(request, 'comments/add.html', {'form': form})
+    return render(request, 'comments/add.html', {'form': form, 'comment':comment})
 
 def delete(request, id):
     comment = Comment.objects.get(id=id)
@@ -66,3 +66,7 @@ def delete(request, id):
 def add_contact(request):
     form = ContactForm()
     return render(request, 'contact/add.html', {'form': form})
+
+def filters_viwe(request):
+    contentHTML='<button type="button">Send</button>'
+    return render(request, 'filters/index.html', {'array': [1,2,3,4,5,6], 'other':True, 'contentHTML':contentHTML})
