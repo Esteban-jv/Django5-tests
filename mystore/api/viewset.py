@@ -63,7 +63,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 
-class CategoryElementsViewSet(viewsets.ReadOnlyModelViewSet):
+class CategoryElementsViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -88,7 +88,7 @@ class CategoryElementsViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = CategorySerializer(queryset, many=False)
         return Response(serializer.data)
 
-class TypeElementsViewSet(viewsets.ReadOnlyModelViewSet):
+class TypeElementsViewSet(viewsets.ModelViewSet):
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
 
