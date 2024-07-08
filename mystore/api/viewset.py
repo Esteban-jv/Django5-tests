@@ -15,8 +15,8 @@ class CreateUpdateDestroyViewSet(mixins.CreateModelMixin,
                                  viewsets.GenericViewSet):
     pass
 class ElementReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     queryset = Element.objects.all()
     serializer_class = ElementReadOnlySerializer
@@ -49,28 +49,28 @@ class ElementCreateUpdateDestroyViewSet(CreateUpdateDestroyViewSet):
         #     type=Category.objects.get(pk=typeid)
         # )
 
-
+'''
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 class TypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
-
+'''
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-'''
 
 
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+
+class CategoryElementsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
     @action(detail=True, methods=['get'])
     def elements(self, request, pk=None):
         queryset = Element.objects.filter(category_id=pk)
-        serializer = ElementSerializer(queryset, many=True)
+        serializer = ElementReadOnlySerializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -88,14 +88,14 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = CategorySerializer(queryset, many=False)
         return Response(serializer.data)
 
-class TypeViewSet(viewsets.ReadOnlyModelViewSet):
+class TypeElementsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
 
     @action(detail=True, methods=['get'])
     def elements(self, request, pk=None):
         queryset = Element.objects.filter(type_id=pk)
-        serializer = ElementSerializer(queryset, many=True)
+        serializer = ElementReadOnlySerializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -112,7 +112,7 @@ class TypeViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = TypeSerializer(queryset, many=False)
         return Response(serializer.data)
 
-
+'''
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.exclude(element__isnull=True)
     serializer_class = CommentSerializer
